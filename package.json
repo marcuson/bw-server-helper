@@ -15,6 +15,7 @@
     "doc:clear": "rimraf docs/compodoc",
     "doc:serve": "compodoc -s",
     "doc": "run-s doc:clear doc:build",
+    "docker:local": "docker compose -f docker-compose.local.yml",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "g:api-bwvaultman:clean": "rimraf src/features/bitwarden/dto",
     "g:api-bwvaultman:gen": "docker run --rm --net=host -u=\"$(id -u)\" -v ${PWD}:/local openapitools/openapi-generator-cli generate -i /local/api-defs/bw-vault-management.openapi.json --global-property models --skip-validate-spec -g typescript-nestjs -o /local/src/features/bitwarden",

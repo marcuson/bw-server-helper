@@ -1,0 +1,17 @@
+services:
+  bwsh:
+    build: .
+    environment:
+      - API_ENABLED=true
+      - BW_CLIENTID=user.51df8057-233c-4f48-b762-5fc4deaa8b6f #xxx
+      - BW_CLIENTSECRET=AAVG620nlj8KDUtIDeBFVLLynUfBZ7 #xxx
+      - BW_SAFE_PASSWORD=MniLM_IaITes8A90.vw #xxx
+      - BW_SERVER_URL=https://vw.oci.marcuson.boo/KpEQYRoG7anxLDYBL/Zo6mUKoV/dycjpceR #delete
+      # - SCHEDULE_ENABLED=true
+      # - SCHEDULE_BACKUP_CRON="*/1 * * * *"
+      - SWAGGER_ENABLED=true
+      - TZ=Europe/Rome
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./local-vol:/bwsh/data
