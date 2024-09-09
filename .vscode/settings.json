@@ -17,5 +17,8 @@
   "search.exclude": {
     "**/docs": true,
     "**/postman": true
+  },
+  "[markdown]": {
+    "editor.wordWrap": "off"
   }
 }
