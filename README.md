@@ -43,15 +43,13 @@ Once the prerequisites are met, you should:
 
 - run `npm run start:debug`. You can attach nodejs debugger to port 9229.
 
-## Docs
-
-### Update docs
+### Docs
 
 We use Compodoc to automatically generate technical docs from source code. The generation
 process must be started manually running the `npm run doc` command from shell. After a succesfull
 execution, the generated documentation will be available in "docs/compodoc".
 
-## Test
+### Test
 
 ```bash
 # unit tests
@@ -64,7 +62,7 @@ npm run test:unit:cov
 npm run test:e2e
 ```
 
-## Useful info
+### Useful dev info
 
 - If you want to import local files in plugins of "nest-cli.json", you must use `.js` files AND
   write a path relative to the "\<repo root\>/node_modules" folder!

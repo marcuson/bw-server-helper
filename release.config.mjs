@@ -41,6 +41,15 @@ const plugs = [
     },
   ],
   [
+    "@semantic-release/exec",
+    {
+      prepareCmd:
+        "npm run release:prepare -- ${nextRelease.version} " + newLatestTag,
+      publishCmd:
+        "npm run release:publish -- ${nextRelease.version} " + newLatestTag,
+    },
+  ],
+  [
     "@semantic-release/git",
     {
       assets: ["docs", "package*.json"],
