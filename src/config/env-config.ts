@@ -18,12 +18,21 @@ function cfg<TSchema>(
 
 // Env config is here
 export const envCfg = {
-  API_ENABLED: cfg('apiEnabled', Joi.bool().optional().default(false)),
+  API_ENABLED: cfg('apiEnabled', Joi.bool().optional().default(true)),
+  BACKUP_MAX_NUM: cfg(
+    'backupMaxNum',
+    Joi.number().optional().default(30).prefs({
+      convert: true,
+    }),
+  ),
   BW_CLIENTID: cfg('bwClientId', Joi.string().required()),
   BW_CLIENTSECRET: cfg('bwClientSecret', Joi.string().required()),
   BW_SAFE_PASSWORD: cfg('bwSafePassword', Joi.string().required()),
-  BW_SERVER_URL: cfg('bwServerUrl', Joi.string().required()),
-  DATA_DIR: cfg('dataDir', Joi.string().required()),
+  BW_SERVER_URL: cfg(
+    'bwServerUrl',
+    Joi.string().optional().default('https://bitwarden.com'),
+  ),
+  DATA_DIR: cfg('dataDir', Joi.string().optional().default('/bwsh/data')),
   IP_BIND: cfg('ipBind', Joi.string().optional().ip().default('0.0.0.0')),
   LOG_LEVEL: cfg(
     'pinoLevel',
@@ -34,7 +43,7 @@ export const envCfg = {
   ),
   PINO_PRETTIFY: cfg(
     'pinoShouldPrettifyLogger',
-    Joi.bool().optional().default(false),
+    Joi.bool().optional().default(true),
   ),
   PORT: cfg(
     'port',
@@ -48,7 +57,7 @@ export const envCfg = {
   ),
   SCHEDULE_BACKUP_CRON: cfg(
     'scheduleBackupCron',
-    Joi.string().optional().default(''),
+    Joi.string().optional().default('0 0 * * *'),
   ),
   SWAGGER_ENABLED: cfg('swaggerEnabled', Joi.bool().optional().default(false)),
   NODE_ENV: cfg('nodeEnv', Joi.string().optional().default('production')),

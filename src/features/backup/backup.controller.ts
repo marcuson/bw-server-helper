@@ -10,9 +10,6 @@ export class BackupController {
 
   @Post()
   async backup(): Promise<Backup> {
-    await this.backupSrv.backup();
-    return <Backup>{
-      filename: 'FIXME',
-    };
+    return await this.backupSrv.backup();
   }
 }

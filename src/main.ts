@@ -9,4 +9,8 @@ appConfig.actualizeFromEnv();
 // been loaded for proper functioning
 import { bootstrap } from './app.bootstrap';
 
+if (!process.env.TZ) {
+  process.env.TZ = 'Etc/UTC';
+}
+
 bootstrap();

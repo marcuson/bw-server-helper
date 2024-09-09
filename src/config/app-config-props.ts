@@ -2,6 +2,7 @@ import { MutablePartOf } from 'src/utils/type.utils';
 
 export class AppConfigProps {
   apiEnabled: boolean;
+  backupMaxNum: number;
   bwServerUrl: string;
   bwClientId: string;
   bwClientSecret: string;
