@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { exec } from 'child_process';
-import { appConfig } from 'src/app.config';
 import { promisify } from 'util';
+import { appConfig } from '../../app.config';
 import { StatusDataTemplate } from './model/statusDataTemplate';
 
 const execPromise = promisify(exec);

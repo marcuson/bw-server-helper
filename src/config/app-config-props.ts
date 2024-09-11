@@ -1,4 +1,4 @@
-import { MutablePartOf } from 'src/utils/type.utils';
+import { MutablePartOf } from '../utils/type.utils';
 
 export class AppConfigProps {
   apiEnabled: boolean;

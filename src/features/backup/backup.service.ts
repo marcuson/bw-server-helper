@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { format } from 'date-fns';
 import { readdir, stat, unlink } from 'fs/promises';
 import { join } from 'path';
-import { appConfig } from 'src/app.config';
+import { appConfig } from '../../app.config';
 import { BitwardenService } from '../bitwarden/bitwarden.service';
 import { Backup } from './model/backup.model';
 
