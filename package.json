@@ -25,7 +25,7 @@
     "docker:hub:desc": "cross-env-shell docker run -v $PWD/README.md:/workspace/README.md -e DOCKERHUB_USERNAME='${DOCKERHUB_USER}' -e DOCKERHUB_PASSWORD='${DOCKERHUB_PAT}' -e DOCKERHUB_REPOSITORY='marcuson/bw-server-helper' -e README_FILEPATH='/workspace/README.md' -e SHORT_DESCRIPTION=\\\"Utilities for Bitwarden server management\\\" peterevans/dockerhub-description",
     "docker:slim": "slim build --http-probe-off --preserve-path-file ignore.txt marcuson/bw-server-helper:0.0.0",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "g:api-bwvaultman:clean": "rimraf src/features/bitwarden/dto",
+    "g:api-bwvaultman:clean": "rimraf src/features/bitwarden/model",
     "g:api-bwvaultman:gen": "docker run --rm --net=host -u=\"$(id -u)\" -v ${PWD}:/local openapitools/openapi-generator-cli generate -i /local/api-defs/bw-vault-management.openapi.json --global-property models --skip-validate-spec -g typescript-nestjs -o /local/src/features/bitwarden",
     "g:api:bwvaultman": "run-s g:api-bwvaultman:clean g:api-bwvaultman:gen",
     "g:api": "run-p g:api:*",
