@@ -25,9 +25,9 @@ You can configure the way the app works with the following env vars:
 | LOG_LEVEL            | `info`                  | Max log level to be shown.                                                                                                                                           |
 | PORT                 | `3000`                  | Bind port of API.                                                                                                                                                    |
 | SCHEDULE_ENABLED     | `false`                 | Whether the scheduled actions are enabled or not.                                                                                                                    |
-| SCHEDULE_BACKUP_CRON | `0 0 \* \* \*`          | The cron expression for automated backups. Pass an empty string to disable this specific task.                                                                       |
+| SCHEDULE_BACKUP_CRON | `0 0 * * *`             | The cron expression for automated backups. Pass an empty string to disable this specific task.                                                                       |
 | NODE_ENV             | `production`            | The Node environment used for libraries like Express. Suggested to leave as per default.                                                                             |
-| TZ                   | `Europe/Rome`           | The timezone used for schedules.                                                                                                                                     |
+| TZ                   | `Etc/UTC`               | The timezone used for schedules.                                                                                                                                     |
 
 ## Development
 
