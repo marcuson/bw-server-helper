@@ -18,10 +18,12 @@ ARG TARGETARCH
 
 RUN apk update && apk add --no-cache tini
 RUN npm i -g --omit=dev @bitwarden/cli && npm cache clean --force
+RUN mkdir -p /bwsh && chmod a+rwx /bwsh
 
 WORKDIR /usr/src/app
 USER node
 ENV NODE_ENV=production
+ENV BITWARDENCLI_APPDATA_DIR=/bwsh/bwcli
 
 COPY --chown=node:node --from=build-stage /usr/src/app/node_modules ./node_modules
 COPY --chown=node:node --from=build-stage /usr/src/app/dist ./dist
