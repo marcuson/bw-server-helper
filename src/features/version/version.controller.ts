@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { getAppVersion } from 'src/utils/package-json.utils';
+import { getAppVersion } from '../../utils/package-json.utils';
 import { Version } from './model/version.model';
 
 @ApiTags('version')

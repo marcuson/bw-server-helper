@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { appConfig } from 'src/app.config';
+import { appConfig } from '../../app.config';
 import { VersionController } from './version.controller';
 
 @Module({

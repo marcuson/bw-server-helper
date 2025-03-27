@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { appConfig } from 'src/app.config';
+import { appConfig } from '../../app.config';
 import { BitwardenModule } from '../bitwarden/bitwarden.module';
 import { BackupController } from './backup.controller';
 import { BackupSchedule } from './backup.schedule';

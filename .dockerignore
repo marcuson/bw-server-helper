@@ -26,3 +26,7 @@ docker-compose.*
 
 # k8 secrets
 /k8s/secret*
+
+/local-vol
+/api-defs
+/docs
