@@ -15,6 +15,7 @@ export class AppConfigProps {
   port: number;
   scheduleEnabled: boolean;
   scheduleBackupCron: string | undefined;
+  scheduleBackupHealthchecksUrl: string | undefined;
   swaggerEnabled: boolean;
 }
 

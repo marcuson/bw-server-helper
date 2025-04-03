@@ -59,6 +59,10 @@ export const envCfg = {
     'scheduleBackupCron',
     Joi.string().optional().default('0 0 * * *'),
   ),
+  SCHEDULE_BACKUP_HEALTHCHECKS_URL: cfg(
+    'scheduleBackupHealthchecksUrl',
+    Joi.string().uri().optional(),
+  ),
   SWAGGER_ENABLED: cfg('swaggerEnabled', Joi.bool().optional().default(false)),
   NODE_ENV: cfg('nodeEnv', Joi.string().optional().default('production')),
 };

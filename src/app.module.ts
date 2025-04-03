@@ -13,6 +13,7 @@ import { appConfig } from './app.config';
 import { BackupModule } from './features/backup/backup.module';
 import { BitwardenModule } from './features/bitwarden/bitwarden.module';
 import { BitwardenService } from './features/bitwarden/bitwarden.service';
+import { HealthchecksModule } from './features/healthchecks/healthchecks.module';
 import { VersionModule } from './features/version/version.module';
 import { HomeController } from './home.controller';
 
@@ -35,6 +36,7 @@ const imports: (ModuleDef | undefined)[] = [
     },
     exclude: ['/healthcheck'],
   }),
+  HealthchecksModule,
   BackupModule,
   BitwardenModule,
   ScheduleModule.forRoot(),
