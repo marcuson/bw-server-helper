@@ -1,4 +1,4 @@
-FROM node:20-alpine AS pnpm-base
+FROM node:24.21.0-alpine AS pnpm-base
 
 ENV COREPACK_HOME=/opt/corepack
 ENV PNPM_HOME=/pnpm

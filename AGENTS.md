@@ -7,7 +7,7 @@ vault backups, pruning old backups, and optionally running scheduled backups wit
 Healthchecks pings. There is no frontend or database layer.
 
 - TypeScript 5, NestJS 10, and the Express platform adapter.
-- Node.js >=20; Docker and GitHub Actions currently use Node 20. Use pnpm 10.34.5
+- Node.js >=24.21.0; Docker, GitHub Actions, and `.nvmrc` use Node 24.21.0 LTS. Use pnpm 10.34.5
   (pinned in `package.json`; enable with `corepack enable`) and keep
   `pnpm-lock.yaml` synchronized with dependency changes (`pnpm install --frozen-lockfile` for setup).
 - `@nestjs/schedule` for cron jobs; `date-fns` for backup filenames.
@@ -150,7 +150,7 @@ represents production defaults. When adding configuration, update the schema,
   scope deletion to the intended backup directory; validate changes with isolated
   fixtures. The API has no built-in authentication, so preserve/document its
   requirement for external authentication when publicly exposed.
-- Docker uses a multi-stage Node 20 Alpine build, runs as `node`, and uses `tini`.
+- Docker uses a multi-stage Node 24.21.0 Alpine build, runs as `node`, and uses `tini`.
   CLI state is at `/bwsh/bwcli`; backups default to `/bwsh/data`. Local Compose
   loads `.env`, exposes port 3000, and mounts `./local-vol` at `/bwsh/data`; ensure
   `DATA_DIR` matches the container mount when using the development env template.

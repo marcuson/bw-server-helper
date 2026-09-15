@@ -34,7 +34,8 @@ You can configure the way the app works with the following env vars:
 
 ### Prerequisites
 
-- use Node.js >=20 and pnpm 10.34.5 (pinned in `package.json`)
+- use Node.js 24.21.0 LTS or newer and pnpm 10.34.5 (pinned in `package.json`)
+- `.nvmrc` pins the development runtime; use `nvm install && nvm use` (or `fnm use --install-if-missing`)
 - enable pnpm with `corepack enable`; Corepack selects the pinned version in this repository
   (see the [pnpm installation guide](https://pnpm.io/installation) if Corepack is unavailable)
 - you should have Docker installed
