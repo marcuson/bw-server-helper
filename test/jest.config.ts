@@ -34,6 +34,7 @@ const config: Config = {
   collectCoverageFrom: [
     '**/*.ts',
     '!**/*.spec.ts',
+    '!**/*.model.ts',
     '!**/features/bitwarden/model/**',
   ],
   coverageDirectory: '<rootDir>/coverage',

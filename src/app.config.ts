@@ -21,7 +21,7 @@ class AppConfig {
   constructor() {
     const entries = Object.entries(envCfg) as Entries<EnvCfgType>;
     const envSchema: EnvSchemaType = entries.reduce((acc, x) => {
-      // @ts-expect-error
+      // @ts-expect-error Dynamic keys cannot preserve the schema/value correlation.
       acc[x[0]] = x[1].schema;
       return acc;
     }, {} as EnvSchemaType);
@@ -60,7 +60,7 @@ class AppConfig {
     for (envVar in envCfg) {
       const appConfigProp = envCfg[envVar].propName as AppConfigMutableKey;
       const value = envProps[envVar];
-      // @ts-expect-error
+      // @ts-expect-error Validated values are assigned through the environment key mapping.
       this.props[appConfigProp] = value;
     }
   }

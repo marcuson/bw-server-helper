@@ -1,4 +1,9 @@
+packages:
+  - '.'
 allowBuilds:
   '@compodoc/compodoc': true
   '@nestjs/core': true
   nestjs-pino: true
+  '@parcel/watcher': true
+  unrs-resolver: true
+  '@scarf/scarf': true

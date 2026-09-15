@@ -6,15 +6,15 @@ Bitwarden Server Helper is a backend service for exporting encrypted Bitwarden
 vault backups, pruning old backups, and optionally running scheduled backups with
 Healthchecks pings. There is no frontend or database layer.
 
-- TypeScript 5, NestJS 10, and the Express platform adapter.
-- Node.js >=24.21.0; Docker, GitHub Actions, and `.nvmrc` use Node 24.21.0 LTS. Use pnpm 10.34.5
+- TypeScript 6.0, NestJS 12, and the Express 5 platform adapter.
+- Node.js >=24.21.0; Docker, GitHub Actions, and `.nvmrc` use Node 24.21.0 LTS. Use pnpm 12.4.2
   (pinned in `package.json`; enable with `corepack enable`) and keep
   `pnpm-lock.yaml` synchronized with dependency changes (`pnpm install --frozen-lockfile` for setup).
 - `@nestjs/schedule` for cron jobs; `date-fns` for backup filenames.
 - Joi, `dotenv`, and `dotenv-expand` for environment configuration.
 - `nestjs-pino`/Pino for logging, Helmet for HTTP security headers, and Nest Swagger
   for optional API documentation. Healthchecks requests use Axios directly.
-- Jest 29, `ts-jest`, and `@nestjs/testing` for tests; ESLint and Prettier for style.
+- Jest 30, `ts-jest`, and `@nestjs/testing` for tests; ESLint 10 (flat config) and Prettier for style.
 - Compodoc generates technical docs; semantic-release handles releases.
 
 ## Code map and behavior
@@ -50,8 +50,8 @@ Run commands from the repository root. For a live local service, copy
 The host must have the `bw` executable available; it is not an npm dependency of
 this project. The Docker image installs `@bitwarden/cli` globally with pnpm.
 Dependency lifecycle scripts are explicitly configured in `pnpm-workspace.yaml`;
-Donation-only hooks and Compodoc's broken published postinstall are disabled
-(the Compodoc package already includes its documentation assets).
+The allowlist permits NestJS, Compodoc, nestjs-pino, and native dependency
+installation hooks for the watcher and Jest resolver.
 Declare directly imported packages and release plugins in `package.json`; do not
 rely on npm-style dependency hoisting.
 
@@ -66,6 +66,8 @@ rely on npm-style dependency hoisting.
 | Unit tests | `pnpm test` or `pnpm run test:unit` |
 | One unit spec | `pnpm run test:unit --runInBand --runTestsByPath src/app.config.spec.ts` |
 | Unit coverage | `pnpm run test:cov --selectProjects unit` |
+| HTTP integration | `pnpm run test:integration` (build first; mocked vault) |
+| Release checks | `pnpm run test:release` (temporary repositories, no publishing) |
 | E2E tests | `pnpm run test:e2e` (no e2e specs currently checked in) |
 | Format source/tests | `pnpm run format` (writes files) |
 | Lint | `pnpm run lint` (writes fixes; see compatibility note below) |
@@ -75,10 +77,13 @@ rely on npm-style dependency hoisting.
 
 Known tooling caveats:
 
-- ESLint 9 is declared, but configuration remains `.eslintrc.js`. If lint fails
-  looking for flat configuration, use `ESLINT_USE_FLAT_CONFIG=false pnpm run lint`.
-  For a check without fixes, use
-  `ESLINT_USE_FLAT_CONFIG=false pnpm exec eslint "{src,apps,libs,test}/**/*.ts"`.
+- ESLint uses `eslint.config.cjs`; generated Bitwarden models are excluded.
+  Use `pnpm run lint:check` for validation without fixes.
+- Deferred major upgrades and their acceptance checks are tracked in
+  `docs/dependency-upgrades.md`. Keep the framework/logging, environment loader,
+  release tooling, and compiler groups separate until their checks pass.
+  dotenv-expand 1000 supports shell-command substitution in `.env` values. Keep
+  TypeScript on 6.0 until compatible tooling is available.
 - Prefer pnpm test scripts: they explicitly select `test/jest.config.ts` and set
   Node options. Plain `jest` can pick the separate configuration in `package.json`.
 - `test:prep` references missing `test/transformers/*.ts`; it is not a
@@ -117,7 +122,8 @@ represents production defaults. When adding configuration, update the schema,
   semicolons, trailing commas, PascalCase classes, camelCase members, and
   filenames such as `backup.service.ts`. Generated models have their own naming.
 - Compilation targets ES2021/CommonJS with decorator metadata, strict null
-  checks, and `noImplicitAny`; preserve those constraints.
+  checks, and `noImplicitAny`; preserve those constraints. `strict: false`
+  explicitly retains the pre-TypeScript-6 defaults for other strict checks.
 - For behavior changes, add focused colocated Jest tests and run the affected
   tests plus `pnpm run nest:build`. Run broader unit tests when shared behavior
   changes. Check formatting/lint on touched source files and report blockers.
@@ -158,3 +164,48 @@ represents production defaults. When adding configuration, update the schema,
   `chore:`, etc.), `main` for stable and `alpha`/`beta` prerelease branches.
   Version tags have no `v` prefix. Release scripts publish multiarch Docker images
   and update Docker Hub metadata; they are not local validation commands.
+
+<!-- gitnexus:start -->
+# GitNexus — Code Intelligence
+
+This project is indexed by GitNexus as **bw-server-helper** (2520 symbols, 7782 relationships, 157 execution flows).
+
+> Index stale? Run `node .gitnexus/run.cjs analyze --index-only` from the project root — it auto-selects an available runner. No `.gitnexus/run.cjs` yet? Bootstrap with `npx`, `bunx`, or `pnpm dlx` — e.g. `bunx gitnexus@latest analyze` (npm 11 npx crash; #1939).
+
+## Always Do
+
+- **MUST run impact before editing.** Use `impact({target: "symbolName", direction: "upstream"})` or `node .gitnexus/run.cjs impact "symbolName" --direction upstream --repo .`; report callers, processes, and risk. Never substitute grep for graph analysis.
+- **MUST analyze graph changes before committing.** Use `detect_changes({scope: "all"})` (MCP) or `node .gitnexus/run.cjs detect-changes --scope all --repo .` (CLI fallback). `partial: true` or `truncated: true` is not a clean check — a zero means unseen, not unaffected; re-run it. For regression review: `detect_changes({scope: "compare", base_ref: "beta"})` or `node .gitnexus/run.cjs detect-changes --scope compare --base-ref "beta" --repo .`.
+- MUST warn on HIGH/CRITICAL `risk` pre-edit; never use `riskSharedAxes` to waive a HIGH/CRITICAL `risk` warning. Compare File/symbol: MCP File omits axes; Graph-RAG expands File.
+- **MUST treat `risk: UNKNOWN` as unresolved, not as low.** An empty caller set is not evidence the symbol is unused — it can also mean the callers are not resolvable by the index (plain-object property access, dynamic dispatch, cross-language calls). `impact` pairs `UNKNOWN` with a `riskNote` saying so. Confirm with a text search before treating the symbol as safe to change or delete; do not proceed on the strength of a zero.
+- **MUST use `query({search_query: "concept"})` for concepts/flows, `context({name: "symbolName"})` for a named symbol, or `impact` for blast radius, on read-only callers, dependencies, imports, or execution flow.** Graph first; text search only for empty/`UNKNOWN`/literals.
+- For security review, `explain({target: "fileOrSymbol"})` lists taint findings (source→sink flows; needs `analyze --pdg`).
+
+## Never Do
+
+- NEVER edit a function, class, or method before MCP/CLI impact analysis.
+- NEVER ignore HIGH or CRITICAL risk warnings from impact analysis, and never read `UNKNOWN` as an all-clear — it means the walk could not answer, which is the one verdict that requires confirming by other means.
+- NEVER rename symbols with find-and-replace — use `rename` which understands the call graph.
+- NEVER commit before MCP/CLI graph change analysis.
+
+## Resources
+
+| Resource | Use for |
+| --- | --- |
+| `gitnexus://repo/bw-server-helper/context` | Codebase overview, check index freshness |
+| `gitnexus://repo/bw-server-helper/clusters` | All functional areas |
+| `gitnexus://repo/bw-server-helper/processes` | All execution flows |
+| `gitnexus://repo/bw-server-helper/process/{name}` | Step-by-step execution trace |
+
+## CLI
+
+| Task | Read this skill file |
+| --- | --- |
+| Understand architecture / "How does X work?" | `.claude/skills/gitnexus-exploring/SKILL.md` |
+| Blast radius / "What breaks if I change X?" | `.claude/skills/gitnexus-impact-analysis/SKILL.md` |
+| Trace bugs / "Why is X failing?" | `.claude/skills/gitnexus-debugging/SKILL.md` |
+| Rename / extract / split / refactor | `.claude/skills/gitnexus-refactoring/SKILL.md` |
+| Tools, resources, schema reference | `.claude/skills/gitnexus-guide/SKILL.md` |
+| Index, status, clean, wiki CLI commands | `.claude/skills/gitnexus-cli/SKILL.md` |
+
+<!-- gitnexus:end -->

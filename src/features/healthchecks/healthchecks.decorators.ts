@@ -7,8 +7,8 @@ export const MeasuredHealthcheck = (opts: {
   url: string;
 }): MethodDecorator => {
   return (
-    target: Object,
-    propertyKey: string,
+    target: object,
+    propertyKey: string | symbol,
     descriptor: PropertyDescriptor,
   ) => {
     if (!opts.enabled) {

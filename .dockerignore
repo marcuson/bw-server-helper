@@ -19,6 +19,7 @@ jest.config.js
 # docker
 Dockerfile
 docker-compose.*
+compose.*
 /docker-data
 
 # local env

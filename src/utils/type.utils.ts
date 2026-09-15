@@ -8,11 +8,8 @@ export function isExactType<T>(value: any, type: Type<T>): value is T {
   return value.constructor.name === type.name;
 }
 
-export type IfEquals<X, Y, A = X, B = never> = (<T>() => T extends X
-  ? 1
-  : 2) extends <T>() => T extends Y ? 1 : 2
-  ? A
-  : B;
+export type IfEquals<X, Y, A = X, B = never> =
+  (<T>() => T extends X ? 1 : 2) extends <T>() => T extends Y ? 1 : 2 ? A : B;
 
 export type MutableKeysOf<T, TOnNonMutableKey = never> = {
   [P in keyof T]-?: IfEquals<

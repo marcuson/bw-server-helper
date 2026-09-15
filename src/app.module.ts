@@ -18,10 +18,7 @@ import { VersionModule } from './features/version/version.module';
 import { HomeController } from './home.controller';
 
 type ModuleDef =
-  | Type<any>
-  | DynamicModule
-  | Promise<DynamicModule>
-  | ForwardReference<any>;
+  Type<any> | DynamicModule | Promise<DynamicModule> | ForwardReference<any>;
 
 const imports: (ModuleDef | undefined)[] = [
   LoggerModule.forRoot({
