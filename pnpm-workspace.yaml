@@ -1,0 +1,4 @@
+allowBuilds:
+  '@compodoc/compodoc': true
+  '@nestjs/core': true
+  nestjs-pino: true

@@ -44,15 +44,15 @@ const plugs = [
     "@semantic-release/exec",
     {
       prepareCmd:
-        "npm run release:prepare -- ${nextRelease.version} " + newLatestTag,
+        "pnpm run release:prepare ${nextRelease.version} " + newLatestTag,
       publishCmd:
-        "npm run release:publish -- ${nextRelease.version} " + newLatestTag,
+        "pnpm run release:publish ${nextRelease.version} " + newLatestTag,
     },
   ],
   [
     "@semantic-release/git",
     {
-      assets: ["docs", "package*.json"],
+      assets: ["docs", "package.json", "pnpm-lock.yaml"],
       message:
         "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
     },

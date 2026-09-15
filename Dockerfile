@@ -1,23 +1,33 @@
-FROM node:20-alpine AS build-stage
+FROM node:20-alpine AS pnpm-base
+
+ENV COREPACK_HOME=/opt/corepack
+ENV PNPM_HOME=/pnpm
+ENV PATH=$PNPM_HOME:$PATH
+RUN corepack enable
+WORKDIR /usr/src/app
+COPY package.json ./
+RUN corepack install && mkdir -p /pnpm && chown node:node /usr/src/app /pnpm
+
+FROM pnpm-base AS build-stage
 
 ARG TARGETARCH
 
 USER node
 WORKDIR /usr/src/app
-COPY --chown=node:node package*.json ./
-RUN npm ci -f
+COPY --chown=node:node package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+RUN pnpm install --frozen-lockfile
 COPY --chown=node:node . .
-RUN npm run build
-RUN npm ci -f --omit=dev && npm cache clean --force
+RUN pnpm run build
+RUN pnpm prune --prod
 
 # ---
 
-FROM node:20-alpine AS prod-stage
+FROM pnpm-base AS prod-stage
 
 ARG TARGETARCH
 
 RUN apk update && apk add --no-cache tini
-RUN npm i -g --omit=dev @bitwarden/cli && npm cache clean --force
+RUN pnpm add --global @bitwarden/cli && pnpm store prune
 RUN mkdir -p /bwsh && chmod a+rwx /bwsh
 
 WORKDIR /usr/src/app

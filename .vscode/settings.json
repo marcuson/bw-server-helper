@@ -5,7 +5,7 @@
     "source.sortMembers": "explicit"
   },
   "editor.formatOnSave": true,
-  "jest.jestCommandLine": "npm run test:run -- ",
+  "jest.jestCommandLine": "pnpm run test:run ",
   "jest.outputConfig": {
     "clearOnRun": "none",
     "revealOn": "run",

@@ -34,33 +34,36 @@ You can configure the way the app works with the following env vars:
 
 ### Prerequisites
 
+- use Node.js >=20 and pnpm 10.34.5 (pinned in `package.json`)
+- enable pnpm with `corepack enable`; Corepack selects the pinned version in this repository
+  (see the [pnpm installation guide](https://pnpm.io/installation) if Corepack is unavailable)
 - you should have Docker installed
 - configure the ".env" file (copy template from ".env.example")
-- run `npm install` to get all needed deps from NPM
+- run `pnpm install` to get all needed deps from NPM
 
 ### Start app
 
 Once the prerequisites are met, you should:
 
-- run `npm run start:debug`. You can attach nodejs debugger to port 9229.
+- run `pnpm run start:debug`. You can attach nodejs debugger to port 9229.
 
 ### Docs
 
 We use Compodoc to automatically generate technical docs from source code. The generation
-process must be started manually running the `npm run doc` command from shell. After a succesfull
+process must be started manually running the `pnpm run doc` command from shell. After a succesfull
 execution, the generated documentation will be available in "docs/compodoc".
 
 ### Test
 
 ```bash
 # unit tests
-npm run test:unit
+pnpm run test:unit
 
 # unit tests coverage
-npm run test:unit:cov
+pnpm run test:cov --selectProjects unit
 
 # e2e tests
-npm run test:e2e
+pnpm run test:e2e
 ```
 
 ### Useful dev info

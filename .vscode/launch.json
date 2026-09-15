@@ -18,7 +18,6 @@
       "args": [
         "run",
         "test:ext:debug",
-        "--",
         "--runInBand",
         "--watchAll=false",
         "--testNamePattern",
@@ -29,7 +28,7 @@
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
-      "runtimeExecutable": "npm",
+      "runtimeExecutable": "pnpm",
       "env": {
         "NODE_OPTIONS": "--experimental-vm-modules -r tsconfig-paths/register -r ts-node/register"
       }
