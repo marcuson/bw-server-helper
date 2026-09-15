@@ -5,8 +5,6 @@ const defaultCfg: Config = {
   transform: {
     '^.+\\.(t|j)s$': 'ts-jest',
   },
-  collectCoverageFrom: ['**/*.(t|j)s'],
-  coverageDirectory: '../coverage',
   testEnvironment: 'node',
 };
 
@@ -30,6 +28,18 @@ const e2eCfg: Config = Object.assign({}, defaultCfg, <Config>{
   testRegex: 'test/e2e/.*\\.e2e-spec\\.ts$',
 });
 
-const config: Config = { projects: [unitCfg, e2eCfg] };
+const config: Config = {
+  rootDir: '..',
+  projects: [unitCfg, e2eCfg],
+  collectCoverageFrom: [
+    '**/*.ts',
+    '!**/*.spec.ts',
+    '!**/features/bitwarden/model/**',
+  ],
+  coverageDirectory: '<rootDir>/coverage',
+  coverageThreshold: {
+    global: { statements: 80, branches: 80, functions: 80, lines: 80 },
+  },
+};
 
 export default config;

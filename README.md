@@ -66,6 +66,13 @@ pnpm run test:cov --selectProjects unit
 pnpm run test:e2e
 ```
 
+Coverage reports are written to `coverage/` (HTML: `coverage/lcov-report/index.html`).
+Coverage includes untested source files; all files under `src/features/bitwarden/model/`
+are excluded. Coverage runs enforce a minimum of 80% for statements, branches,
+functions, and lines.
+Tests mock CLI commands, backup filesystem operations, and HTTP requests, so they do
+not require vault credentials or network access.
+
 ### Useful dev info
 
 - If you want to import local files in plugins of "nest-cli.json", you must use `.js` files AND
