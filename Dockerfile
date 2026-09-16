@@ -2,11 +2,12 @@ FROM node:24.21.0-alpine AS pnpm-base
 
 ENV COREPACK_HOME=/opt/corepack
 ENV PNPM_HOME=/pnpm
-ENV PATH=$PNPM_HOME:$PATH
+ENV PATH=$PNPM_HOME/bin:$PNPM_HOME:$PATH
 RUN corepack enable
 WORKDIR /usr/src/app
 COPY package.json ./
-RUN corepack install && mkdir -p /pnpm && chown node:node /usr/src/app /pnpm
+# pnpm 12 downloads its native binary on first use; initialize it before USER node.
+RUN corepack install && pnpm --version && mkdir -p /pnpm && chown node:node /usr/src/app /pnpm
 
 FROM pnpm-base AS build-stage
 
@@ -22,13 +23,33 @@ RUN pnpm prune --prod
 
 # ---
 
-FROM pnpm-base AS prod-stage
+FROM node:24.21.0-alpine AS cli-stage
 
 ARG TARGETARCH
 
-RUN apk update && apk add --no-cache tini
-RUN pnpm add --global @bitwarden/cli && pnpm store prune
-RUN mkdir -p /bwsh && chmod a+rwx /bwsh
+RUN npm install --global @bitwarden/cli@2026.8.0 \
+  && npm cache clean --force \
+  && rm -rf /usr/local/lib/node_modules/npm \
+            /usr/local/lib/node_modules/corepack \
+            /usr/local/bin/npm \
+            /usr/local/bin/npx \
+  && find /usr/local/lib/node_modules/@bitwarden/cli -name '*.map' -delete
+
+# ---
+
+FROM alpine:3.24 AS prod-stage
+
+ARG TARGETARCH
+
+RUN apk add --no-cache ca-certificates libstdc++ tini \
+  && adduser -D -u 1000 node \
+  && mkdir -p /bwsh /usr/src/app \
+  && chmod a+rwx /bwsh
+
+COPY --from=cli-stage /usr/local/bin/node /usr/local/bin/node
+COPY --from=cli-stage /usr/local/lib/node_modules/@bitwarden/cli /usr/local/lib/node_modules/@bitwarden/cli
+RUN printf '%s\n' '#!/bin/sh' 'exec /usr/local/bin/node /usr/local/lib/node_modules/@bitwarden/cli/build/bw.js "$@"' > /usr/local/bin/bw \
+  && chmod +x /usr/local/bin/bw
 
 WORKDIR /usr/src/app
 USER node
