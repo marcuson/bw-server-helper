@@ -1,0 +1,619 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Bitwarden Server Helper docs</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">Bitwarden Server Helper docs</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content miscellaneous-typealiases">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Miscellaneous</li>
+  <li class="breadcrumb-item">Type aliases</li>
+</ol>
+
+<section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <ul class="index-list">
+                        <li>
+                            <a href="#AppConfigMutableKey" title="src/config/app-config-props.ts" ><b>AppConfigMutableKey</b>&nbsp;&nbsp;&nbsp;(src/.../app-config-props.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#AppConfigMutablePart" title="src/config/app-config-props.ts" ><b>AppConfigMutablePart</b>&nbsp;&nbsp;&nbsp;(src/.../app-config-props.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#BrandEnum" title="src/features/bitwarden/model/itemCard.ts" ><b>BrandEnum</b>&nbsp;&nbsp;&nbsp;(src/.../itemCard.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#CfgInfo" title="src/config/env-config.ts" ><b>CfgInfo</b>&nbsp;&nbsp;&nbsp;(src/.../env-config.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Entries" title="src/utils/type.utils.ts" ><b>Entries</b>&nbsp;&nbsp;&nbsp;(src/.../type.utils.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#EnvCfgType" title="src/config/env-config.ts" ><b>EnvCfgType</b>&nbsp;&nbsp;&nbsp;(src/.../env-config.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#EnvCfgTypeKey" title="src/config/env-config.ts" ><b>EnvCfgTypeKey</b>&nbsp;&nbsp;&nbsp;(src/.../env-config.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#EnvSchemaType" title="src/config/env-config.ts" ><b>EnvSchemaType</b>&nbsp;&nbsp;&nbsp;(src/.../env-config.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#EnvType" title="src/config/env-config.ts" ><b>EnvType</b>&nbsp;&nbsp;&nbsp;(src/.../env-config.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#IfEquals" title="src/utils/type.utils.ts" ><b>IfEquals</b>&nbsp;&nbsp;&nbsp;(src/.../type.utils.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#MatchEnum" title="src/features/bitwarden/model/uris.ts" ><b>MatchEnum</b>&nbsp;&nbsp;&nbsp;(src/.../uris.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#ModuleDef" title="src/app.module.ts" ><b>ModuleDef</b>&nbsp;&nbsp;&nbsp;(src/.../app.module.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#MutableKeysOf" title="src/utils/type.utils.ts" ><b>MutableKeysOf</b>&nbsp;&nbsp;&nbsp;(src/.../type.utils.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#MutablePartOf" title="src/utils/type.utils.ts" ><b>MutablePartOf</b>&nbsp;&nbsp;&nbsp;(src/.../type.utils.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#ObjectEnum" title="src/features/bitwarden/model/statusData.ts" ><b>ObjectEnum</b>&nbsp;&nbsp;&nbsp;(src/.../statusData.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#RepromptEnum" title="src/features/bitwarden/model/itemTemplate.ts" ><b>RepromptEnum</b>&nbsp;&nbsp;&nbsp;(src/.../itemTemplate.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#StatusEnum" title="src/features/bitwarden/model/statusDataTemplate.ts" ><b>StatusEnum</b>&nbsp;&nbsp;&nbsp;(src/.../statusDataTemplate.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TypeEnum" title="src/features/bitwarden/model/field.ts" ><b>TypeEnum</b>&nbsp;&nbsp;&nbsp;(src/.../field.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TypeEnum" title="src/features/bitwarden/model/itemSecureNote.ts" ><b>TypeEnum</b>&nbsp;&nbsp;&nbsp;(src/.../itemSecureNote.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TypeEnum" title="src/features/bitwarden/model/itemTemplate.ts" ><b>TypeEnum</b>&nbsp;&nbsp;&nbsp;(src/.../itemTemplate.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TypeEnum" title="src/features/bitwarden/model/sendTemplate.ts" ><b>TypeEnum</b>&nbsp;&nbsp;&nbsp;(src/.../sendTemplate.ts)</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    <h3>src/config/app-config-props.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="AppConfigMutableKey"></a>
+                    <span class="name "><b>AppConfigMutableKey</b><a href="#AppConfigMutableKey"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code></code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="AppConfigMutablePart"></a>
+                    <span class="name "><b>AppConfigMutablePart</b><a href="#AppConfigMutablePart"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>        <code><a href="../miscellaneous/typealiases.html#MutablePartOf" target="_self" >MutablePartOf&lt;AppConfigProps&gt;</a></code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/features/bitwarden/model/itemCard.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="BrandEnum"></a>
+                    <span class="name "><b>BrandEnum</b><a href="#BrandEnum"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code></code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/config/env-config.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="CfgInfo"></a>
+                    <span class="name "><b>CfgInfo</b><a href="#CfgInfo"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>literal type</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="EnvCfgType"></a>
+                    <span class="name "><b>EnvCfgType</b><a href="#EnvCfgType"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code></code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="EnvCfgTypeKey"></a>
+                    <span class="name "><b>EnvCfgTypeKey</b><a href="#EnvCfgTypeKey"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code></code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="EnvSchemaType"></a>
+                    <span class="name "><b>EnvSchemaType</b><a href="#EnvSchemaType"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code></code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="EnvType"></a>
+                    <span class="name "><b>EnvType</b><a href="#EnvType"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code></code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/utils/type.utils.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Entries"></a>
+                    <span class="name "><b>Entries</b><a href="#Entries"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>[]</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="IfEquals"></a>
+                    <span class="name "><b>IfEquals</b><a href="#IfEquals"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code></code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="MutableKeysOf"></a>
+                    <span class="name "><b>MutableKeysOf</b><a href="#MutableKeysOf"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code></code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="MutablePartOf"></a>
+                    <span class="name "><b>MutablePartOf</b><a href="#MutablePartOf"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>        <code><a href="../miscellaneous/typealiases.html#MutableKeysOf" target="_self" >Pick&lt;T | MutableKeysOf&lt;T&gt;&gt;</a></code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/features/bitwarden/model/uris.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="MatchEnum"></a>
+                    <span class="name "><b>MatchEnum</b><a href="#MatchEnum"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>&quot;0&quot; | &quot;1&quot; | &quot;2&quot; | &quot;3&quot; | &quot;4&quot; | &quot;5&quot;</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/app.module.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ModuleDef"></a>
+                    <span class="name "><b>ModuleDef</b><a href="#ModuleDef"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>Type&lt;any&gt; | DynamicModule | Promise&lt;DynamicModule&gt; | ForwardReference&lt;any&gt;</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/features/bitwarden/model/statusData.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ObjectEnum"></a>
+                    <span class="name "><b>ObjectEnum</b><a href="#ObjectEnum"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code></code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/features/bitwarden/model/itemTemplate.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="RepromptEnum"></a>
+                    <span class="name "><b>RepromptEnum</b><a href="#RepromptEnum"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>&quot;0&quot; | &quot;1&quot;</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TypeEnum"></a>
+                    <span class="name "><b>TypeEnum</b><a href="#TypeEnum"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>&quot;1&quot; | &quot;2&quot; | &quot;3&quot; | &quot;4&quot;</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/features/bitwarden/model/statusDataTemplate.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="StatusEnum"></a>
+                    <span class="name "><b>StatusEnum</b><a href="#StatusEnum"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>&quot;locked&quot; | &quot;unlocked&quot; | &quot;unauthenticated&quot;</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/features/bitwarden/model/field.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TypeEnum"></a>
+                    <span class="name "><b>TypeEnum</b><a href="#TypeEnum"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>&quot;0&quot; | &quot;1&quot; | &quot;2&quot; | &quot;3&quot;</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/features/bitwarden/model/itemSecureNote.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TypeEnum"></a>
+                    <span class="name "><b>TypeEnum</b><a href="#TypeEnum"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code></code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>src/features/bitwarden/model/sendTemplate.ts</h3>
+    <section data-compodoc="block-typealias">
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TypeEnum"></a>
+                    <span class="name "><b>TypeEnum</b><a href="#TypeEnum"><span class="icon ion-ios-link"></span></a></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <code>    <code>&quot;0&quot; | &quot;1&quot;</code>
+</code>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'miscellaneous-typealiases';
+            var COMPODOC_CURRENT_PAGE_URL = 'typealiases.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

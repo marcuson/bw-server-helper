@@ -1,0 +1,781 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Bitwarden Server Helper docs</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">Bitwarden Server Helper docs</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content miscellaneous-variables">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Miscellaneous</li>
+  <li class="breadcrumb-item">Variables</li>
+</ol>
+
+<section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <ul class="index-list">
+                        <li>
+                            <a href="#appConfig" title="src/app.config.ts" ><b>appConfig</b>&nbsp;&nbsp;&nbsp;(src/.../app.config.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#BrandEnum" title="src/features/bitwarden/model/itemCard.ts" ><b>BrandEnum</b>&nbsp;&nbsp;&nbsp;(src/.../itemCard.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#envCfg" title="src/config/env-config.ts" ><b>envCfg</b>&nbsp;&nbsp;&nbsp;(src/.../env-config.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#envFilePaths" title="src/main.ts" ><b>envFilePaths</b>&nbsp;&nbsp;&nbsp;(src/.../main.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#execPromise" title="src/features/bitwarden/bitwarden.service.ts" ><b>execPromise</b>&nbsp;&nbsp;&nbsp;(src/.../bitwarden.service.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#filteredImports" title="src/app.module.ts" ><b>filteredImports</b>&nbsp;&nbsp;&nbsp;(src/.../app.module.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#imports" title="src/app.module.ts" ><b>imports</b>&nbsp;&nbsp;&nbsp;(src/.../app.module.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#MatchEnum" title="src/features/bitwarden/model/uris.ts" ><b>MatchEnum</b>&nbsp;&nbsp;&nbsp;(src/.../uris.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#ObjectEnum" title="src/features/bitwarden/model/statusData.ts" ><b>ObjectEnum</b>&nbsp;&nbsp;&nbsp;(src/.../statusData.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#providers" title="src/features/backup/backup.module.ts" ><b>providers</b>&nbsp;&nbsp;&nbsp;(src/.../backup.module.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#RepromptEnum" title="src/features/bitwarden/model/itemTemplate.ts" ><b>RepromptEnum</b>&nbsp;&nbsp;&nbsp;(src/.../itemTemplate.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#StatusEnum" title="src/features/bitwarden/model/statusDataTemplate.ts" ><b>StatusEnum</b>&nbsp;&nbsp;&nbsp;(src/.../statusDataTemplate.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TypeEnum" title="src/features/bitwarden/model/field.ts" ><b>TypeEnum</b>&nbsp;&nbsp;&nbsp;(src/.../field.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TypeEnum" title="src/features/bitwarden/model/itemSecureNote.ts" ><b>TypeEnum</b>&nbsp;&nbsp;&nbsp;(src/.../itemSecureNote.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TypeEnum" title="src/features/bitwarden/model/itemTemplate.ts" ><b>TypeEnum</b>&nbsp;&nbsp;&nbsp;(src/.../itemTemplate.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#TypeEnum" title="src/features/bitwarden/model/sendTemplate.ts" ><b>TypeEnum</b>&nbsp;&nbsp;&nbsp;(src/.../sendTemplate.ts)</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    <h3>src/app.config.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="appConfig"></a>
+                    <span class="name">
+                        <span ><b>appConfig</b></span>
+                        <a href="#appConfig"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new AppConfig()</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/features/bitwarden/model/itemCard.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="BrandEnum"></a>
+                    <span class="name">
+                        <span ><b>BrandEnum</b></span>
+                        <a href="#BrandEnum"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+        Visa: &#x27;visa&#x27; as BrandEnum
+    }</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/config/env-config.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="envCfg"></a>
+                    <span class="name">
+                        <span ><b>envCfg</b></span>
+                        <a href="#envCfg"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  API_ENABLED: cfg(&#x27;apiEnabled&#x27;, Joi.bool().optional().default(true)),
+  BACKUP_MAX_NUM: cfg(
+    &#x27;backupMaxNum&#x27;,
+    Joi.number().optional().default(30).prefs({
+      convert: true,
+    }),
+  ),
+  BW_CLIENTID: cfg(&#x27;bwClientId&#x27;, Joi.string().required()),
+  BW_CLIENTSECRET: cfg(&#x27;bwClientSecret&#x27;, Joi.string().required()),
+  BW_SAFE_PASSWORD: cfg(&#x27;bwSafePassword&#x27;, Joi.string().required()),
+  BW_SERVER_URL: cfg(
+    &#x27;bwServerUrl&#x27;,
+    Joi.string().optional().default(&#x27;https://bitwarden.com&#x27;),
+  ),
+  DATA_DIR: cfg(&#x27;dataDir&#x27;, Joi.string().optional().default(&#x27;/bwsh/data&#x27;)),
+  IP_BIND: cfg(&#x27;ipBind&#x27;, Joi.string().optional().ip().default(&#x27;0.0.0.0&#x27;)),
+  LOG_LEVEL: cfg(
+    &#x27;pinoLevel&#x27;,
+    Joi.string()
+      .allow(&#x27;trace&#x27;, &#x27;debug&#x27;, &#x27;info&#x27;, &#x27;warn&#x27;, &#x27;error&#x27;)
+      .optional()
+      .default(&#x27;info&#x27;),
+  ),
+  PINO_PRETTIFY: cfg(
+    &#x27;pinoShouldPrettifyLogger&#x27;,
+    Joi.bool().optional().default(true),
+  ),
+  PORT: cfg(
+    &#x27;port&#x27;,
+    Joi.number().optional().default(3000).prefs({
+      convert: true,
+    }),
+  ),
+  SCHEDULE_ENABLED: cfg(
+    &#x27;scheduleEnabled&#x27;,
+    Joi.bool().optional().default(false),
+  ),
+  SCHEDULE_BACKUP_CRON: cfg(
+    &#x27;scheduleBackupCron&#x27;,
+    Joi.string().optional().default(&#x27;0 0 * * *&#x27;),
+  ),
+  SWAGGER_ENABLED: cfg(&#x27;swaggerEnabled&#x27;, Joi.bool().optional().default(false)),
+  NODE_ENV: cfg(&#x27;nodeEnv&#x27;, Joi.string().optional().default(&#x27;production&#x27;)),
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/main.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="envFilePaths"></a>
+                    <span class="name">
+                        <span ><b>envFilePaths</b></span>
+                        <a href="#envFilePaths"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[&#x27;.env&#x27;]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/features/bitwarden/bitwarden.service.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="execPromise"></a>
+                    <span class="name">
+                        <span ><b>execPromise</b></span>
+                        <a href="#execPromise"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>promisify(exec)</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app.module.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filteredImports"></a>
+                    <span class="name">
+                        <span ><b>filteredImports</b></span>
+                        <a href="#filteredImports"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#ModuleDef" target="_self" >ModuleDef[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>imports.filter((x) &#x3D;&gt; !!x) as ModuleDef[]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="imports"></a>
+                    <span class="name">
+                        <span ><b>imports</b></span>
+                        <a href="#imports"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+  LoggerModule.forRoot({
+    pinoHttp: {
+      level: appConfig.props.pinoLevel || &#x27;info&#x27;,
+      transport: appConfig.props.pinoShouldPrettifyLogger
+        ? {
+            target: &#x27;pino-pretty&#x27;,
+            options: { singleLine: true },
+          }
+        : undefined,
+    },
+    exclude: [&#x27;/healthcheck&#x27;],
+  }),
+  BackupModule,
+  BitwardenModule,
+  ScheduleModule.forRoot(),
+  VersionModule,
+]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/features/bitwarden/model/uris.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="MatchEnum"></a>
+                    <span class="name">
+                        <span ><b>MatchEnum</b></span>
+                        <a href="#MatchEnum"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+        NUMBER_0: 0 as MatchEnum,
+        NUMBER_1: 1 as MatchEnum,
+        NUMBER_2: 2 as MatchEnum,
+        NUMBER_3: 3 as MatchEnum,
+        NUMBER_4: 4 as MatchEnum,
+        NUMBER_5: 5 as MatchEnum
+    }</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/features/bitwarden/model/statusData.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ObjectEnum"></a>
+                    <span class="name">
+                        <span ><b>ObjectEnum</b></span>
+                        <a href="#ObjectEnum"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+        Template: &#x27;template&#x27; as ObjectEnum
+    }</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/features/backup/backup.module.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="providers"></a>
+                    <span class="name">
+                        <span ><b>providers</b></span>
+                        <a href="#providers"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+  BackupService,
+  appConfig.props.scheduleEnabled ? BackupSchedule : undefined,
+].filter((x) &#x3D;&gt; x !&#x3D;&#x3D; undefined)</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/features/bitwarden/model/itemTemplate.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="RepromptEnum"></a>
+                    <span class="name">
+                        <span ><b>RepromptEnum</b></span>
+                        <a href="#RepromptEnum"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+        NUMBER_0: 0 as RepromptEnum,
+        NUMBER_1: 1 as RepromptEnum
+    }</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TypeEnum"></a>
+                    <span class="name">
+                        <span ><b>TypeEnum</b></span>
+                        <a href="#TypeEnum"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+        NUMBER_1: 1 as TypeEnum,
+        NUMBER_2: 2 as TypeEnum,
+        NUMBER_3: 3 as TypeEnum,
+        NUMBER_4: 4 as TypeEnum
+    }</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/features/bitwarden/model/statusDataTemplate.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="StatusEnum"></a>
+                    <span class="name">
+                        <span ><b>StatusEnum</b></span>
+                        <a href="#StatusEnum"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+        Locked: &#x27;locked&#x27; as StatusEnum,
+        Unlocked: &#x27;unlocked&#x27; as StatusEnum,
+        Unauthenticated: &#x27;unauthenticated&#x27; as StatusEnum
+    }</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/features/bitwarden/model/field.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TypeEnum"></a>
+                    <span class="name">
+                        <span ><b>TypeEnum</b></span>
+                        <a href="#TypeEnum"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+        _0: &#x27;0&#x27; as TypeEnum,
+        _1: &#x27;1&#x27; as TypeEnum,
+        _2: &#x27;2&#x27; as TypeEnum,
+        _3: &#x27;3&#x27; as TypeEnum
+    }</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/features/bitwarden/model/itemSecureNote.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TypeEnum"></a>
+                    <span class="name">
+                        <span ><b>TypeEnum</b></span>
+                        <a href="#TypeEnum"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+        NUMBER_0: 0 as TypeEnum
+    }</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/features/bitwarden/model/sendTemplate.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="TypeEnum"></a>
+                    <span class="name">
+                        <span ><b>TypeEnum</b></span>
+                        <a href="#TypeEnum"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+        NUMBER_0: 0 as TypeEnum,
+        NUMBER_1: 1 as TypeEnum
+    }</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'miscellaneous-variables';
+            var COMPODOC_CURRENT_PAGE_URL = 'variables.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
