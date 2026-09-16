@@ -1,16 +1,19 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { exec } from 'child_process';
+import { exec, execFile } from 'child_process';
 import { promisify } from 'util';
 import { appConfig } from '../../app.config';
+import { Organization } from './model/organization';
 import { StatusDataTemplate } from './model/statusDataTemplate';
 
 const execPromise = promisify(exec);
+const execFilePromise = promisify(execFile);
 
 export interface BWExportOptions {
   password: string;
   raw?: boolean;
   output?: string;
   format: 'csv' | 'json' | 'encrypted_json';
+  organizationId?: string;
 }
 
 @Injectable()
@@ -116,6 +119,7 @@ export class BitwardenService {
       password: appConfig.props.bwSafePassword,
       raw: true,
       format: 'encrypted_json',
+      organizationId: undefined,
     };
     const opts = Object.assign(defaultOpts, options);
 
@@ -125,18 +129,31 @@ export class BitwardenService {
       );
     }
 
-    let cmd = `bw export --format ${opts.format}`;
+    const args = ['export', '--format', opts.format];
     if (opts.format === 'encrypted_json') {
-      cmd += ` --password ${opts.password}`;
+      args.push('--password', opts.password);
     }
-
+    if (opts.organizationId !== undefined) {
+      if (!opts.organizationId)
+        throw new Error('Organization ID must not be empty');
+      args.push('--organizationid', opts.organizationId);
+    }
     if (opts.raw && !opts.output) {
-      cmd += ` --raw`;
+      args.push('--raw');
     } else {
-      cmd += ` --output ${opts.output}`;
+      args.push('--output', opts.output!);
     }
+    try {
+      const res = await execFilePromise('bw', args);
+      return res.stdout;
+    } catch {
+      // Process errors include the command and its password; do not propagate them.
+      throw new Error('Bitwarden export failed');
+    }
+  }
 
-    const res = await execPromise(cmd);
-    return res.stdout;
+  async getOrgs(): Promise<Organization[]> {
+    const res = await execPromise('bw list organizations');
+    return JSON.parse(res.stdout) as Organization[];
   }
 }

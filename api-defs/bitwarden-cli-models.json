@@ -1,0 +1,50 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Bitwarden CLI supplementary models",
+    "version": "1.0.0",
+    "description": "Project-maintained CLI response models missing from the official Vault Management API schema. Generate with pnpm run g:api:bwcli."
+  },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "Organization": {
+        "type": "object",
+        "description": "An organization returned by bw list organizations. Status and type describe the current user's membership.",
+        "externalDocs": {
+          "description": "Bitwarden CLI OrganizationResponse source",
+          "url": "https://github.com/bitwarden/clients/blob/main/apps/cli/src/admin-console/models/response/organization.response.ts"
+        },
+        "required": ["object", "id", "name", "status", "type", "enabled"],
+        "properties": {
+          "object": {
+            "type": "string",
+            "enum": ["organization"]
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "integer",
+            "description": "Membership status: Revoked=-1, Invited=0, Accepted=1, Confirmed=2.",
+            "enum": [-1, 0, 1, 2],
+            "x-enum-varnames": ["Revoked", "Invited", "Accepted", "Confirmed"]
+          },
+          "type": {
+            "type": "integer",
+            "description": "Membership role: Owner=0, Admin=1, User=2, Manager=3, Custom=4.",
+            "enum": [0, 1, 2, 3, 4],
+            "x-enum-varnames": ["Owner", "Admin", "User", "Manager", "Custom"]
+          },
+          "enabled": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+}

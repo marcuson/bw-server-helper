@@ -1,4 +1,4 @@
-import { exec } from 'child_process';
+import { exec, execFile } from 'child_process';
 import { appConfig } from '../../app.config';
 import { BitwardenService } from './bitwarden.service';
 
@@ -12,10 +12,17 @@ jest.mock('child_process', () => {
       configurable: true,
     },
   );
-  return { exec: execute };
+  const executeFile = jest.fn();
+  Object.defineProperty(
+    executeFile,
+    jest.requireActual<typeof import('util')>('util').promisify.custom,
+    { value: executeFile, configurable: true },
+  );
+  return { exec: execute, execFile: executeFile };
 });
 
 const execute = exec as unknown as jest.Mock;
+const executeFile = execFile as unknown as jest.Mock;
 
 describe('BitwardenService', () => {
   const originalConfig = { ...appConfig.props };
@@ -26,6 +33,7 @@ describe('BitwardenService', () => {
   beforeEach(() => {
     originalEnv = { ...process.env };
     execute.mockReset().mockResolvedValue({ stdout: '', stderr: '' });
+    executeFile.mockReset().mockResolvedValue({ stdout: '', stderr: '' });
     Object.assign(appConfig.props, {
       bwServerUrl: serverUrl,
       bwSafePassword: 'test-password',
@@ -121,20 +129,28 @@ describe('BitwardenService', () => {
   });
 
   it('exports encrypted JSON to stdout by default', async () => {
-    execute.mockResolvedValueOnce({ stdout: 'encrypted-data' });
+    executeFile.mockResolvedValueOnce({ stdout: 'encrypted-data' });
     await expect(service.export()).resolves.toBe('encrypted-data');
-    expect(execute).toHaveBeenCalledWith(
-      'bw export --format encrypted_json --password test-password --raw',
-    );
+    expect(executeFile).toHaveBeenCalledWith('bw', [
+      'export',
+      '--format',
+      'encrypted_json',
+      '--password',
+      'test-password',
+      '--raw',
+    ]);
   });
 
   it.each(['json', 'csv'] as const)(
     'exports %s without an encryption password',
     async (format) => {
       await service.export({ format });
-      expect(execute).toHaveBeenCalledWith(
-        `bw export --format ${format} --raw`,
-      );
+      expect(executeFile).toHaveBeenCalledWith('bw', [
+        'export',
+        '--format',
+        format,
+        '--raw',
+      ]);
     },
   );
 
@@ -143,20 +159,59 @@ describe('BitwardenService', () => {
       output: '/test-data/backup.json',
       password: 'override',
     });
-    expect(execute).toHaveBeenCalledWith(
-      'bw export --format encrypted_json --password override --output /test-data/backup.json',
-    );
+    expect(executeFile).toHaveBeenCalledWith('bw', [
+      'export',
+      '--format',
+      'encrypted_json',
+      '--password',
+      'override',
+      '--output',
+      '/test-data/backup.json',
+    ]);
   });
 
   it('rejects file exports without a destination before invoking the CLI', async () => {
     await expect(service.export({ raw: false })).rejects.toThrow(
       'options.output',
     );
-    expect(execute).not.toHaveBeenCalled();
+    expect(executeFile).not.toHaveBeenCalled();
   });
 
   it('propagates export failures', async () => {
-    execute.mockRejectedValueOnce(new Error('Export failed'));
-    await expect(service.export()).rejects.toThrow('Export failed');
+    executeFile.mockRejectedValueOnce(new Error('Export failed'));
+    await expect(service.export()).rejects.toThrow('Bitwarden export failed');
+  });
+  it('passes organization IDs, passwords and paths as literal arguments', async () => {
+    await service.export({
+      organizationId: 'org-id',
+      password: 'a $(secret); \" b',
+      output: '/tmp/path with spaces.json',
+    });
+    expect(executeFile).toHaveBeenCalledWith('bw', [
+      'export',
+      '--format',
+      'encrypted_json',
+      '--password',
+      'a $(secret); \" b',
+      '--organizationid',
+      'org-id',
+      '--output',
+      '/tmp/path with spaces.json',
+    ]);
+    expect(execute).not.toHaveBeenCalled();
+  });
+
+  it('does not expose sensitive command details on export failure', async () => {
+    executeFile.mockRejectedValue(
+      new Error('bw export --password test-password'),
+    );
+    await expect(service.export()).rejects.toThrow(/^Bitwarden export failed$/);
+  });
+
+  it('rejects an empty organization ID instead of exporting the personal vault', async () => {
+    await expect(service.export({ organizationId: '' })).rejects.toThrow(
+      'Organization ID',
+    );
+    expect(executeFile).not.toHaveBeenCalled();
   });
 });

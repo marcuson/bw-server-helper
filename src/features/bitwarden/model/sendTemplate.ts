@@ -22,6 +22,7 @@ export interface SendTemplate {
     deletionDate?: string;
     expirationDate?: string;
     password?: string;
+    emails?: Array<string>;
     disabled?: boolean;
     hideEmail?: boolean;
 }

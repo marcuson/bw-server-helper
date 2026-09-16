@@ -30,6 +30,27 @@ You can configure the way the app works with the following env vars:
 | NODE_ENV                         | `production`            | The Node environment used for libraries like Express. Suggested to leave as per default.                                                                             |
 | TZ                               | `Etc/UTC`               | The timezone used for schedules.                                                                                                                                     |
 
+## Backups
+
+Each backup creates one `yyyyMMdd-HHmmss.zip` archive in `DATA_DIR/backup`.
+It contains `vault.json` for the personal vault and `org-<sanitized-name>.json`
+for every organization returned by `bw list organizations`. Organization filenames
+use lowercase ASCII slugs (up to 80 characters), with numeric suffixes for collisions
+and `organization` as the fallback for empty slugs. The encrypted `organizations.txt`
+entry maps filenames to organization IDs and original names (JSON-quoted to escape
+line breaks and tabs). It contains only its header when there are no organizations.
+Each JSON export
+is password-encrypted using `BW_SAFE_PASSWORD`; the ZIP also uses the same password
+with WinZip-compatible AES-256 encryption. Open it with an AES-capable tool such
+as 7-Zip or PeaZip, then import the encrypted JSON into Bitwarden. ZIP entry names
+remain visible without the password.
+The CLI account must have permission to export every organization.
+
+Exports are staged in a temporary directory under `DATA_DIR`, then compressed
+into a ZIP and moved into the backup directory. If any export or ZIP creation
+fails, temporary files are removed and existing backups are not pruned.
+Retention counts each ZIP as one backup and also includes older JSON backups.
+
 ## Development
 
 ### Prerequisites

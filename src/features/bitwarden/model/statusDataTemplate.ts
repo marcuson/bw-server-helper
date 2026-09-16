@@ -15,7 +15,7 @@ export interface StatusDataTemplate {
     serverUrl?: string;
     lastSync?: string;
     userEmail?: string;
-    userID?: string;
+    userId?: string;
     status?: StatusDataTemplate.StatusEnum;
 }
 export namespace StatusDataTemplate {

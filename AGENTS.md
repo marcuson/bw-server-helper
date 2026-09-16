@@ -38,7 +38,7 @@ Healthchecks pings. There is no frontend or database layer.
   decorator send start, success, and failure pings around scheduled work.
 - `src/features/version/`: `GET /api/version`; `src/home.controller.ts`: `GET /`.
   Version values come from `package.json` through `src/utils/package-json.utils.ts`.
-- `api-defs/bw-vault-management.openapi.json`: source for generated Bitwarden
+- `api-defs/vault-management-api.json`: source for generated Bitwarden
   models under `src/features/bitwarden/model/`.
 - Tests are colocated `src/**/*.spec.ts`; `test/jest.config.ts` defines unit and
   e2e projects, with environment fixtures under `test/`.
@@ -55,25 +55,25 @@ installation hooks for the watcher and Jest resolver.
 Declare directly imported packages and release plugins in `package.json`; do not
 rely on npm-style dependency hoisting.
 
-| Task | Command / notes |
-| --- | --- |
-| Install dependencies | `pnpm install --frozen-lockfile` |
-| Watch mode | `pnpm run start:dev` |
-| Debug watch mode | `pnpm run start:debug` (debugger port 9229) |
-| Compile application only | `pnpm run nest:build` |
-| Full build | `pnpm run build` (also deletes and regenerates Compodoc docs) |
-| Run compiled app | `pnpm run start:prod` (`dist/src/main`) |
-| Unit tests | `pnpm test` or `pnpm run test:unit` |
-| One unit spec | `pnpm run test:unit --runInBand --runTestsByPath src/app.config.spec.ts` |
-| Unit coverage | `pnpm run test:cov --selectProjects unit` |
-| HTTP integration | `pnpm run test:integration` (build first; mocked vault) |
-| Release checks | `pnpm run test:release` (temporary repositories, no publishing) |
-| E2E tests | `pnpm run test:e2e` (no e2e specs currently checked in) |
-| Format source/tests | `pnpm run format` (writes files) |
-| Lint | `pnpm run lint` (writes fixes; see compatibility note below) |
-| Generate / serve docs | `pnpm run doc` / `pnpm run doc:serve` |
-| Build local Docker image | `pnpm run docker:local:build` |
-| Run local Compose stack | `pnpm run docker:local:compose up --build` |
+| Task                     | Command / notes                                                          |
+| ------------------------ | ------------------------------------------------------------------------ |
+| Install dependencies     | `pnpm install --frozen-lockfile`                                         |
+| Watch mode               | `pnpm run start:dev`                                                     |
+| Debug watch mode         | `pnpm run start:debug` (debugger port 9229)                              |
+| Compile application only | `pnpm run nest:build`                                                    |
+| Full build               | `pnpm run build` (also deletes and regenerates Compodoc docs)            |
+| Run compiled app         | `pnpm run start:prod` (`dist/src/main`)                                  |
+| Unit tests               | `pnpm test` or `pnpm run test:unit`                                      |
+| One unit spec            | `pnpm run test:unit --runInBand --runTestsByPath src/app.config.spec.ts` |
+| Unit coverage            | `pnpm run test:cov --selectProjects unit`                                |
+| HTTP integration         | `pnpm run test:integration` (build first; mocked vault)                  |
+| Release checks           | `pnpm run test:release` (temporary repositories, no publishing)          |
+| E2E tests                | `pnpm run test:e2e` (no e2e specs currently checked in)                  |
+| Format source/tests      | `pnpm run format` (writes files)                                         |
+| Lint                     | `pnpm run lint` (writes fixes; see compatibility note below)             |
+| Generate / serve docs    | `pnpm run doc` / `pnpm run doc:serve`                                    |
+| Build local Docker image | `pnpm run docker:local:build`                                            |
+| Run local Compose stack  | `pnpm run docker:local:compose up --build`                               |
 
 Known tooling caveats:
 
@@ -190,22 +190,22 @@ This project is indexed by GitNexus as **bw-server-helper** (2520 symbols, 7782 
 
 ## Resources
 
-| Resource | Use for |
-| --- | --- |
-| `gitnexus://repo/bw-server-helper/context` | Codebase overview, check index freshness |
-| `gitnexus://repo/bw-server-helper/clusters` | All functional areas |
-| `gitnexus://repo/bw-server-helper/processes` | All execution flows |
-| `gitnexus://repo/bw-server-helper/process/{name}` | Step-by-step execution trace |
+| Resource                                          | Use for                                  |
+| ------------------------------------------------- | ---------------------------------------- |
+| `gitnexus://repo/bw-server-helper/context`        | Codebase overview, check index freshness |
+| `gitnexus://repo/bw-server-helper/clusters`       | All functional areas                     |
+| `gitnexus://repo/bw-server-helper/processes`      | All execution flows                      |
+| `gitnexus://repo/bw-server-helper/process/{name}` | Step-by-step execution trace             |
 
 ## CLI
 
-| Task | Read this skill file |
-| --- | --- |
-| Understand architecture / "How does X work?" | `.claude/skills/gitnexus-exploring/SKILL.md` |
-| Blast radius / "What breaks if I change X?" | `.claude/skills/gitnexus-impact-analysis/SKILL.md` |
-| Trace bugs / "Why is X failing?" | `.claude/skills/gitnexus-debugging/SKILL.md` |
-| Rename / extract / split / refactor | `.claude/skills/gitnexus-refactoring/SKILL.md` |
-| Tools, resources, schema reference | `.claude/skills/gitnexus-guide/SKILL.md` |
-| Index, status, clean, wiki CLI commands | `.claude/skills/gitnexus-cli/SKILL.md` |
+| Task                                         | Read this skill file                               |
+| -------------------------------------------- | -------------------------------------------------- |
+| Understand architecture / "How does X work?" | `.claude/skills/gitnexus-exploring/SKILL.md`       |
+| Blast radius / "What breaks if I change X?"  | `.claude/skills/gitnexus-impact-analysis/SKILL.md` |
+| Trace bugs / "Why is X failing?"             | `.claude/skills/gitnexus-debugging/SKILL.md`       |
+| Rename / extract / split / refactor          | `.claude/skills/gitnexus-refactoring/SKILL.md`     |
+| Tools, resources, schema reference           | `.claude/skills/gitnexus-guide/SKILL.md`           |
+| Index, status, clean, wiki CLI commands      | `.claude/skills/gitnexus-cli/SKILL.md`             |
 
 <!-- gitnexus:end -->
